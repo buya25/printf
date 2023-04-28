@@ -1,6 +1,6 @@
 #include "main.h"
 
-/************************* WRITE HANDLE *************************/
+
 /**
  * handle_write_char - Prints a string
  * @c: char types.
@@ -14,7 +14,7 @@
  */
 int handle_write_char(char c, char buffer[],
 	int flags, int width, int precision, int size)
-{ /* char is stored at left and paddind at buffer's right */
+{
 	int i = 0;
 	char padd = ' ';
 
@@ -44,7 +44,7 @@ int handle_write_char(char c, char buffer[],
 	return (write(1, &buffer[0], 1));
 }
 
-/************************* WRITE NUMBER *************************/
+
 /**
  * write_number - Prints a string
  * @is_negative: Lista of arguments
@@ -153,7 +153,7 @@ int write_unsgnd(int is_negative, int ind,
 	char buffer[],
 	int flags, int width, int precision, int size)
 {
-	/* The number is stored at the bufer's right and starts at position i */
+	
 	int length = BUFF_SIZE - ind - 1, i = 0;
 	char padd = ' ';
 
@@ -182,11 +182,11 @@ int write_unsgnd(int is_negative, int ind,
 
 		buffer[i] = '\0';
 
-		if (flags & F_MINUS) /* Asign extra char to left of buffer [buffer>padd]*/
+		if (flags & F_MINUS)
 		{
 			return (write(1, &buffer[ind], length) + write(1, &buffer[0], i));
 		}
-		else /* Asign extra char to left of padding [padd>buffer]*/
+		else
 		{
 			return (write(1, &buffer[0], i) + write(1, &buffer[ind], length));
 		}
@@ -218,7 +218,7 @@ int write_pointer(char buffer[], int ind, int length,
 		for (i = 3; i < width - length + 3; i++)
 			buffer[i] = padd;
 		buffer[i] = '\0';
-		if (flags & F_MINUS && padd == ' ')/* Asign extra char to left of buffer */
+		if (flags & F_MINUS && padd == ' ')
 		{
 			buffer[--ind] = 'x';
 			buffer[--ind] = '0';
@@ -226,7 +226,7 @@ int write_pointer(char buffer[], int ind, int length,
 				buffer[--ind] = extra_c;
 			return (write(1, &buffer[ind], length) + write(1, &buffer[3], i - 3));
 		}
-		else if (!(flags & F_MINUS) && padd == ' ')/* extra char to left of buffer */
+		else if (!(flags & F_MINUS) && padd == ' ')
 		{
 			buffer[--ind] = 'x';
 			buffer[--ind] = '0';
@@ -234,7 +234,7 @@ int write_pointer(char buffer[], int ind, int length,
 				buffer[--ind] = extra_c;
 			return (write(1, &buffer[3], i - 3) + write(1, &buffer[ind], length));
 		}
-		else if (!(flags & F_MINUS) && padd == '0')/* extra char to left of padd */
+		else if (!(flags & F_MINUS) && padd == '0')
 		{
 			if (extra_c)
 				buffer[--padd_start] = extra_c;
